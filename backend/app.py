@@ -125,8 +125,8 @@ def process():
             doc.close()
         
         # Procesar todas las páginas a la vez (rápido)
-        with concurrent.futures.ProcessPoolExecutor() as executor:
-            list(executor.map(convert_page_worker, tasks))
+        with concurrent.futures.ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
+            results = list(executor.map(convert_page_worker, tasks))
         
         if data.get('gen_word', True):
             imgs = [os.path.join(output_folder, f) for f in os.listdir(output_folder) if f.endswith('.jpg')]

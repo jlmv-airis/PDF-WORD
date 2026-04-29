@@ -563,40 +563,61 @@
             color: #627E84;
         }
         
-        /* Success Alert */
-        .success-alert {
+        /* Success Modal */
+        .success-modal {
             display: none;
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             z-index: 1001;
-            background: #65E4A3;
-            color: #292929;
-            padding: 16px 24px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            min-width: 400px;
+            text-align: center;
         }
         
-        .success-alert.show {
+        .success-modal.show {
+            display: block;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        .success-icon {
+            width: 48px;
+            height: 48px;
+            background: #65E4A3;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 12px;
-            animation: slideIn 0.4s ease;
+            justify-content: center;
+            margin: 0 auto 16px;
         }
         
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(100px); }
-            to { opacity: 1; transform: translateX(0); }
+        .success-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
         }
         
-        .success-alert a {
-            text-decoration: underline;
-            font-size: 14px;
+        .success-modal h3 {
+            font-size: 18px;
             font-weight: 600;
+            color: #292929;
+            margin-bottom: 8px;
         }
         
-        .success-alert a:hover {
-            text-decoration: none;
+        .success-modal p {
+            font-size: 14px;
+            color: #627E84;
+            margin-bottom: 16px;
+        }
+        
+        .success-modal .auto-download {
+            font-size: 12px;
+            color: #8d8cd6;
+            margin-top: 12px;
         }
         
         /* Version Badge */
@@ -784,15 +805,17 @@
         <p class="progress-details" id="progressDetails">Iniciando...</p>
     </div>
 
-    <!-- Success Alert -->
-    <div class="success-alert" id="successAlert">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </svg>
-        <div>
-            <p style="font-weight: 600;">¡Proceso completado!</p>
-            <a id="downloadLink" href="#" style="font-size: 14px;">Descargar Word</a>
+    <!-- Success Modal -->
+    <div class="success-modal" id="successModal">
+        <div class="success-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
         </div>
+        <h3>¡Proceso completado!</h3>
+        <p>Tu archivo se está descargando automáticamente...</p>
+        <a id="downloadLink" href="#" style="display: none;">Descargar Word</a>
+        <p class="auto-download">Si la descarga no inicia, <a href="#" id="manualLink">haz clic aquí</a></p>
     </div>
 
     <!-- Footer -->
@@ -811,8 +834,9 @@
         const floatingProgress = document.getElementById('floatingProgress');
         const progressBar = document.getElementById('progressBar');
         const progressDetails = document.getElementById('progressDetails');
-        const successAlert = document.getElementById('successAlert');
+        const successModal = document.getElementById('successModal');
         const downloadLink = document.getElementById('downloadLink');
+        const manualLink = document.getElementById('manualLink');
         const pdfSettings = document.getElementById('pdfSettings');
         const dropContent = document.getElementById('dropContent');
         const fileList = document.getElementById('fileList');
@@ -1003,18 +1027,29 @@
                 if (data.ready) {
                     setTimeout(function() {
                         floatingProgress.classList.remove('show');
-                        successAlert.classList.add('show');
+                        successModal.classList.add('show');
                         
+                        let downloadUrl = '';
                         if (data.has_zip) {
-                            downloadLink.href = '/download/' + task_id + '/Imagenes_completo.zip';
+                            downloadUrl = '/download/' + task_id + '/Imagenes_completo.zip';
                         } else {
-                            downloadLink.href = '/download/' + task_id + '/Imagenes.docx';
+                            downloadUrl = '/download/' + task_id + '/Imagenes.docx';
                         }
                         
-                        // Auto-hide alert after 8 seconds
+                        // Descarga automática
+                        downloadLink.href = downloadUrl;
+                        downloadLink.download = downloadUrl.split('/').pop();
+                        manualLink.href = downloadUrl;
+                        
+                        // Activar descarga automática
                         setTimeout(function() {
-                            successAlert.classList.remove('show');
-                        }, 8000);
+                            downloadLink.click();
+                        }, 500);
+                        
+                        // Cerrar modal después de 5 segundos
+                        setTimeout(function() {
+                            successModal.classList.remove('show');
+                        }, 5000);
                     }, 500);
                 }
             } catch (e) {
