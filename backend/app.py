@@ -11,7 +11,7 @@ from docx.enum.section import WD_ORIENT
 import concurrent.futures
 import zipfile
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../static', static_url_path='/static')
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['OUTPUT_FOLDER'] = 'outputs'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -86,7 +86,7 @@ def generate_word(images, output_path):
 
 @app.route('/')
 def index():
-    return send_file('static/index.html')
+    return send_file('../static/index.html')
 
 @app.route('/upload', methods=['POST'])
 def upload():
