@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+.env
+venv/
+env/
+
+# Flask
+uploads/
+outputs/
+*.log
+
+# Node/React
+node_modules/
+dist/
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Agent directories
+.claude/
+.agents/
+.qwen/
+
+# OS
+Thumbs.db

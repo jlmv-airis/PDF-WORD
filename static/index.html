@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>AIRIS SUITE | Conversor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box;
+            font-family: 'Manrope', sans-serif; 
+        }
+        
+        body { 
+            background: #FAFAFA; 
+            color: #1a1a1a; 
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: #0A2640;
+            width: 100%;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            color: #EAEAEA;
+            font-size: 16px;
+        }
+        
+        /* Main content */
+        .main-content {
+            padding: 60px 0;
+        }
+        
+        /* Mode Selector */
+        .mode-selector {
+            display: flex;
+            gap: 4px;
+            background: white;
+            border-radius: 50px;
+            padding: 4px;
+            border: 1px solid #EAEAEA;
+            width: fit-content;
+            margin: 0 auto 40px;
+        }
+        
+        .mode-btn {
+            padding: 10px 24px;
+            border-radius: 50px;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #627E84;
+        }
+        
+        .mode-btn.active {
+            background: #0A2640;
+            color: white;
+            box-shadow: 0 2px 8px rgba(10, 38, 64, 0.2);
+        }
+        
+        .mode-btn:not(.active):hover {
+            color: #0A2640;
+        }
+        
+        /* Upload Zone */
+        .upload-zone {
+            background: white;
+            border: 2px dashed #EAEAEA;
+            border-radius: 16px;
+            padding: 48px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 24px;
+        }
+        
+        .upload-zone:hover {
+            border-color: rgba(10, 38, 64, 0.3);
+        }
+        
+        .upload-zone.file-loaded {
+            border-color: #65E4A3;
+            border-style: solid;
+            background: rgba(101, 228, 163, 0.05);
+        }
+        
+        .upload-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            background: rgba(10, 38, 64, 0.05);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .upload-icon svg {
+            width: 28px;
+            height: 28px;
+            color: #0A2640;
+        }
+        
+        .upload-text h3 {
+            color: #0A2640;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .upload-text p {
+            color: #627E84;
+            font-size: 14px;
+        }
+        
+        /* File List */
+        .file-list {
+            margin-top: 24px;
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+        
+        /* Scrollbar styles */
+        .file-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .file-list::-webkit-scrollbar-track {
+            background: #F0F0F0;
+            border-radius: 3px;
+        }
+        
+        .file-list::-webkit-scrollbar-thumb {
+            background: #0A2640;
+            border-radius: 3px;
+        }
+        
+        .file-list::-webkit-scrollbar-thumb:hover {
+            background: #0d3a6b;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #F8F8F8;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            transition: background 0.2s ease;
+        }
+        
+        .file-item:hover {
+            background: #F0F0F0;
+        }
+        
+        .file-item-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(101, 228, 163, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .file-icon svg {
+            width: 18px;
+            height: 18px;
+            color: #0A2640;
+        }
+        
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .file-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #0A2640;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 500px;
+        }
+        
+        .file-size {
+            font-size: 12px;
+            color: #627E84;
+            margin-top: 2px;
+        }
+        
+        .file-remove {
+            padding: 4px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+            flex-shrink: 0;
+        }
+        
+        .file-remove:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+        
+        .file-remove svg {
+            width: 16px;
+            height: 16px;
+            color: #F87171;
+        }
+        
+        /* Settings Panel */
+        .settings-panel {
+            background: white;
+            border: 1px solid #EAEAEA;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            display: none;
+        }
+        
+        .settings-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        
+        .settings-title svg {
+            width: 18px;
+            height: 18px;
+            color: #0A2640;
+        }
+        
+        .settings-title h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0A2640;
+        }
+        
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+        }
+        
+        .setting-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .setting-item label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #0A2640;
+        }
+        
+        .setting-select {
+            width: 100%;
+            padding: 12px;
+            background: #F8F8F8;
+            border: 1px solid #EAEAEA;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #0A2640;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+        
+        .setting-select:focus {
+            outline: none;
+            border-color: #0A2640;
+        }
+        
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 48px;
+            height: 28px;
+            border-radius: 50px;
+            border: 1px solid #EAEAEA;
+            background: #EAEAEA;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .toggle-switch.active {
+            background: #65E4A3;
+            border-color: #65E4A3;
+        }
+        
+        .toggle-dot {
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .toggle-switch.active .toggle-dot {
+            transform: translateX(20px);
+            background: #0A2640;
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            background: #0A2640;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 40px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: #0d3a6b;
+            transform: translateY(-1px);
+        }
+        
+        .btn-primary:active:not(:disabled) {
+            transform: translateY(0);
+        }
+        
+        .btn-primary:disabled {
+            background: #EAEAEA;
+            color: #627E84;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #0A2640;
+            border: 1px solid #EAEAEA;
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #F8F8F8;
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 32px;
+        }
+        
+        /* Floating Progress */
+        .floating-progress {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            min-width: 400px;
+            text-align: center;
+        }
+        
+        .floating-progress.show {
+            display: block;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        .progress-spinner {
+            width: 24px;
+            height: 24px;
+            animation: spin 2s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .progress-status {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0A2640;
+            margin-bottom: 16px;
+        }
+        
+        .progress-bar-container {
+            height: 12px;
+            background: #F8F8F8;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: #65E4A3;
+            border-radius: 6px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+        
+        .progress-details {
+            font-size: 14px;
+            color: #627E84;
+        }
+        
+        /* Success Alert */
+        .success-alert {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: #65E4A3;
+            color: #0A2640;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .success-alert.show {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.4s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .success-alert a {
+            text-decoration: underline;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .success-alert a:hover {
+            text-decoration: none;
+        }
+        
+        /* Footer */
+        .footer {
+            border-top: 1px solid #EAEAEA;
+            margin-top: 64px;
+            padding: 24px 0;
+            text-align: center;
+        }
+        
+        .footer p {
+            font-size: 12px;
+            color: #627E84;
+            font-weight: 500;
+        }
+        
+        /* Fade-in animation */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .delay-1 { animation-delay: 80ms; }
+        .delay-2 { animation-delay: 160ms; }
+        .delay-3 { animation-delay: 240ms; }
+        .delay-4 { animation-delay: 320ms; }
+        
+        @media (max-width: 768px) {
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Prevent browser from opening files on drag
+        ['dragenter', 'dragover', 'drop'].forEach(function(eventName) {
+            document.addEventListener(eventName, function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }, false);
+        });
+    </script>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <h1>AIRIS</h1>
+            <p>Conversión inteligente de documentos</p>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-content">
+        <div class="container">
+            
+            <!-- Mode Selector -->
+            <div class="mode-selector fade-in delay-1">
+                <button class="mode-btn active" id="modePdf">PDF a Imagen</button>
+                <button class="mode-btn" id="modeImg">Solo Word</button>
+            </div>
+
+            <!-- Upload Zone -->
+            <div class="upload-zone fade-in delay-2" id="dropZone">
+                <input type="file" id="fileInput" multiple style="display: none;">
+                <div class="upload-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                </div>
+                <div id="dropContent">
+                    <div class="upload-text">
+                        <h3>Arrastra archivos aquí</h3>
+                        <p>o haz clic para seleccionar • PDF</p>
+                    </div>
+                </div>
+                <div class="file-list" id="fileList"></div>
+            </div>
+
+            <!-- Settings Panel (PDF Mode) -->
+            <div class="settings-panel fade-in delay-3" id="pdfSettings">
+                <div class="settings-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <h3>Configuración</h3>
+                </div>
+                
+                <div class="settings-grid">
+                    <div>
+                        <label class="setting-item">
+                            <span>Calidad</span>
+                        </label>
+                        <select class="setting-select" id="quality">
+                            <option value="Estandar">Estandar (150 DPI)</option>
+                            <option value="HD" selected>HD (300 DPI)</option>
+                            <option value="Ultra">Ultra (600 DPI)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <span style="font-size: 14px; font-weight: 500; color: #0A2640;">Auto-recorte</span>
+                        <div class="toggle-switch active" id="toggleAutoCrop" onclick="toggleSwitch('autoCrop')">
+                            <div class="toggle-dot"></div>
+                        </div>
+                        <input type="hidden" id="autoCrop" value="true">
+                    </div>
+                    
+                    <div class="setting-item">
+                        <span style="font-size: 14px; font-weight: 500; color: #0A2640;">Generar Word</span>
+                        <div class="toggle-switch active" id="toggleGenWord" onclick="toggleSwitch('genWord')">
+                            <div class="toggle-dot"></div>
+                        </div>
+                        <input type="hidden" id="genWord" value="true">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Progress Modal -->
+            <div class="floating-progress" id="floatingProgress">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; justify-content: center;">
+                    <svg class="progress-spinner" fill="none" stroke="#0A2640" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                    <span class="progress-status" id="statusText">Procesando...</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <p class="progress-details" id="progressDetails">Iniciando...</p>
+            </div>
+
+            <!-- Success Alert -->
+            <div class="success-alert" id="successAlert">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div>
+                    <p style="font-weight: 600;">¡Proceso completado!</p>
+                    <a id="downloadLink" href="#" style="font-size: 14px;">Descargar Word</a>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="button-group fade-in delay-4">
+                <button class="btn-secondary" id="btnLimpiar">Limpiar</button>
+                <button class="btn-primary" id="processBtn">
+                    <span style="display: flex; align-items: center; gap: 8px;">
+                        INICIAR CONVERSIÓN
+                        <svg fill="currentColor" viewBox="0 0 24 24" style="width: 16px; height: 16px;">
+                            <path d="M8 5v14l11-7z"></path>
+                        </svg>
+                    </span>
+                </button>
+                <button class="btn-secondary" id="btnVolver">Volver</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <p>Desarrollado por Jorge Meneses • AIRIS SUITE v1.1</p>
+        </div>
+    </div>
+
+    <script>
+        let mode = 'pdf';
+        let files = [];
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const processBtn = document.getElementById('processBtn');
+        const floatingProgress = document.getElementById('floatingProgress');
+        const progressBar = document.getElementById('progressBar');
+        const progressDetails = document.getElementById('progressDetails');
+        const successAlert = document.getElementById('successAlert');
+        const downloadLink = document.getElementById('downloadLink');
+        const pdfSettings = document.getElementById('pdfSettings');
+        const dropContent = document.getElementById('dropContent');
+        const fileList = document.getElementById('fileList');
+        const btnLimpiar = document.getElementById('btnLimpiar');
+        const btnVolver = document.getElementById('btnVolver');
+
+        function toggleSwitch(id) {
+            const toggle = document.getElementById('toggle' + id.charAt(0).toUpperCase() + id.slice(1));
+            const hiddenInput = document.getElementById(id);
+            toggle.classList.toggle('active');
+            hiddenInput.value = toggle.classList.contains('active') ? 'true' : 'false';
+        }
+
+        function resetToDefault() {
+            document.getElementById('quality').selectedIndex = 1;
+            document.getElementById('autoCrop').value = 'true';
+            document.getElementById('toggleAutoCrop').classList.add('active');
+            document.getElementById('genWord').value = 'true';
+            document.getElementById('toggleGenWord').classList.add('active');
+        }
+
+        function clearAll() {
+            files = [];
+            updateFileDisplay();
+            resetToDefault();
+        }
+
+        function goToHome() {
+            mode = 'pdf';
+            updateModeButtons('pdf');
+            fileInput.accept = '.pdf';
+            dropContent.querySelector('p:last-child').textContent = 'o haz clic para seleccionar • PDF';
+            clearAll();
+        }
+
+        document.getElementById('modePdf').addEventListener('click', function() {
+            mode = 'pdf';
+            pdfSettings.style.display = 'block';
+            updateModeButtons('pdf');
+            fileInput.accept = '.pdf';
+            dropContent.querySelector('p:last-child').textContent = 'o haz clic para seleccionar • PDF';
+            files = [];
+            updateFileDisplay();
+        });
+
+        document.getElementById('modeImg').addEventListener('click', function() {
+            mode = 'img';
+            pdfSettings.style.display = 'none';
+            updateModeButtons('img');
+            fileInput.accept = '.jpg,.jpeg,.png';
+            dropContent.querySelector('p:last-child').textContent = 'o haz clic para seleccionar • JPG, PNG';
+            files = [];
+            updateFileDisplay();
+        });
+
+        function updateModeButtons(activeMode) {
+            const pdfBtn = document.getElementById('modePdf');
+            const imgBtn = document.getElementById('modeImg');
+            
+            if (activeMode === 'pdf') {
+                pdfBtn.classList.add('active');
+                imgBtn.classList.remove('active');
+            } else {
+                imgBtn.classList.add('active');
+                pdfBtn.classList.remove('active');
+            }
+        }
+
+        dropZone.addEventListener('click', function(e) {
+            if (e.target.closest('.file-item-remove')) return;
+            fileInput.click();
+        });
+
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = 'rgba(10, 38, 64, 0.3)';
+        });
+
+        dropZone.addEventListener('dragleave', function() {
+            if (files.length === 0) {
+                dropZone.style.borderColor = '#EAEAEA';
+            }
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '#EAEAEA';
+            const newFiles = Array.from(e.dataTransfer.files).filter(function(f) {
+                return mode === 'pdf' ? f.type === 'application/pdf' : f.type.startsWith('image/');
+            });
+            files = files.concat(newFiles);
+            updateFileDisplay();
+        });
+
+        fileInput.addEventListener('change', function() {
+            files = files.concat(Array.from(fileInput.files));
+            updateFileDisplay();
+            fileInput.value = '';
+        });
+
+        function updateFileDisplay() {
+            if (files.length > 0) {
+                dropContent.style.display = 'none';
+                fileList.style.display = 'block';
+                dropZone.classList.add('file-loaded');
+                
+                fileList.innerHTML = files.map(function(f, idx) {
+                    const fileName = f.name.length > 40 ? f.name.substring(0, 37) + '...' : f.name;
+                    return '<div class="file-item">' +
+                        '<div class="file-item-left">' +
+                            '<div class="file-icon">' +
+                                '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+                                    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>' +
+                                '</svg>' +
+                            '</div>' +
+                            '<div class="file-info">' +
+                                '<div class="file-name" title="' + f.name + '">' + fileName + '</div>' +
+                                '<div class="file-size">' + (f.size / 1024 / 1024).toFixed(2) + ' MB</div>' +
+                            '</div>' +
+                        '</div>' +
+                        '<button class="file-remove file-item-remove" onclick="removeFile(' + idx + ')">' +
+                            '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+                                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>' +
+                            '</svg>' +
+                        '</button>' +
+                    '</div>';
+                }).join('');
+            } else {
+                dropContent.style.display = 'block';
+                fileList.style.display = 'none';
+                dropZone.classList.remove('file-loaded');
+            }
+        }
+
+        window.removeFile = function(index) {
+            files.splice(index, 1);
+            updateFileDisplay();
+        };
+
+        btnLimpiar.addEventListener('click', clearAll);
+
+        btnVolver.addEventListener('click', goToHome);
+
+        processBtn.addEventListener('click', async function() {
+            if (!files.length) return alert('Selecciona archivos');
+            
+            processBtn.disabled = true;
+            floatingProgress.classList.add('show');
+            progressBar.style.width = '10%';
+            progressDetails.textContent = 'Subiendo archivos...';
+
+            try {
+                const formData = new FormData();
+                files.forEach(function(f) { formData.append('files', f); });
+
+                progressDetails.textContent = 'Subiendo...';
+                const uploadRes = await fetch('/upload', { method: 'POST', body: formData });
+                const { task_id } = await uploadRes.json();
+
+                progressDetails.textContent = 'Procesando...';
+                progressBar.style.width = '30%';
+
+                const procRes = await fetch('/process', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        task_id: task_id,
+                        mode: mode,
+                        quality: document.getElementById('quality').value,
+                        auto_crop: document.getElementById('autoCrop').value === 'true',
+                        gen_word: document.getElementById('genWord').value === 'true'
+                    })
+                });
+
+                progressBar.style.width = '100%';
+                progressDetails.textContent = '¡Completado!';
+
+                const data = await procRes.json();
+
+                if (data.ready) {
+                    setTimeout(function() {
+                        floatingProgress.classList.remove('show');
+                        successAlert.classList.add('show');
+                        
+                        if (data.has_zip) {
+                            downloadLink.href = '/download/' + task_id + '/Imagenes_completo.zip';
+                        } else {
+                            downloadLink.href = '/download/' + task_id + '/Imagenes.docx';
+                        }
+                        
+                        // Auto-hide alert after 8 seconds
+                        setTimeout(function() {
+                            successAlert.classList.remove('show');
+                        }, 8000);
+                    }, 500);
+                }
+            } catch (e) {
+                progressDetails.textContent = 'Error: ' + e.message;
+                setTimeout(function() { floatingProgress.classList.remove('show'); }, 2000);
+            }
+
+            processBtn.disabled = false;
+        });
+
+        // Fade-in animation
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(function(el) {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
