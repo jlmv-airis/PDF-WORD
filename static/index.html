@@ -600,8 +600,8 @@
         
         /* Version Badge */
         .version-badge {
-            position: fixed;
-            top: 20px;
+            position: absolute;
+            bottom: 20px;
             right: 20px;
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
@@ -612,6 +612,16 @@
             font-weight: 600;
             z-index: 1002;
             border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #fbfbfc;
+            font-size: 12px;
+            font-weight: 500;
+            position: relative;
         }
         
         /* Responsive */
@@ -640,7 +650,6 @@
     </style>
 </head>
 <body>
-    <div class="version-badge">v1.0</div>
     <script>
         // Prevent browser from opening files on drag
         ['dragenter', 'dragover', 'drop'].forEach(function(eventName) {
@@ -789,6 +798,7 @@
     <div class="footer">
         <p>Desarrollado por Jorge Meneses | jorge.meneses@airis-ae.com.mx</p>
         <p style="margin-top: 8px;">© 2026 AIRIS SUITE. Todos los derechos reservados.</p>
+        <div class="version-badge">v1.0</div>
     </div>
 
     <script>
