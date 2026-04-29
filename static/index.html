@@ -26,11 +26,11 @@
         
         /* Header */
         .header {
-            background: linear-gradient(135deg, #4A1E6E 0%, #7C3AED 100%);
+            background: linear-gradient(135deg, #7472ca 0%, #635dc4 50%, #58566e 100%);
             width: 100%;
             padding: 50px 0;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(74, 30, 110, 0.3);
+            box-shadow: 0 4px 20px rgba(99, 93, 196, 0.3);
         }
         
         .logo {
@@ -62,6 +62,27 @@
         /* Main content */
         .main-content {
             padding: 60px 0;
+        }
+        
+        .two-column-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: sticky;
+            top: 20px;
         }
         
         /* Mode Selector */
@@ -411,16 +432,24 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
         
-        .button-group {
+        /* Buttons Vertical */
+        .button-group-vertical {
             display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-            margin-top: 32px;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .button-group-vertical .btn-primary,
+        .button-group-vertical .btn-secondary {
+            width: 100%;
+            justify-content: center;
+            font-size: 16px;
+            padding: 20px 32px;
         }
         
         /* Buttons */
         .btn-primary {
-            background: #4A1E6E;
+            background: linear-gradient(135deg, #7472ca 0%, #635dc4 100%);
             color: white;
             border: none;
             border-radius: 12px;
@@ -433,18 +462,19 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            box-shadow: 0 4px 12px rgba(99, 93, 196, 0.3);
         }
         
         .btn-primary:hover:not(:disabled) {
-            background: #7C3AED;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(74, 30, 110, 0.3);
+            background: linear-gradient(135deg, #8d8cd6 0%, #7472ca 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 93, 196, 0.4);
         }
         
         .btn-secondary {
             background: white;
-            color: #4A1E6E;
-            border: 1px solid #EAEAEA;
+            color: #635dc4;
+            border: 2px solid #8d8cd6;
             border-radius: 12px;
             padding: 12px 24px;
             font-size: 14px;
@@ -454,9 +484,9 @@
         }
         
         .btn-secondary:hover {
-            background: #F8F8F8;
-            border-color: #4A1E6E;
-            box-shadow: 0 2px 8px rgba(74, 30, 110, 0.1);
+            background: #fbfbfc;
+            border-color: #635dc4;
+            box-shadow: 0 2px 8px rgba(99, 93, 196, 0.1);
         }
         
         /* Floating Progress */
@@ -633,11 +663,95 @@
     <div class="main-content">
         <div class="container">
             
-            <!-- Mode Selector -->
-            <div class="mode-selector fade-in delay-1">
-                <button class="mode-btn active" id="modePdf">PDF a Imagen</button>
-                <button class="mode-btn" id="modeImg">Solo Word</button>
+            <div class="two-column-layout">
+                <!-- Left Column -->
+                <div class="left-column">
+                    
+                    <!-- Mode Selector -->
+                    <div class="mode-selector fade-in delay-1">
+                        <button class="mode-btn active" id="modePdf">PDF a Imagen</button>
+                        <button class="mode-btn" id="modeImg">Solo Word</button>
+                    </div>
+
+                    <!-- Upload Zone -->
+                    <div class="upload-zone fade-in delay-2" id="dropZone">
+                        <input type="file" id="fileInput" multiple style="display: none;">
+                        <div class="upload-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                            </svg>
+                        </div>
+                        <div id="dropContent">
+                            <div class="upload-text">
+                                <h3>Arrastra archivos aquí</h3>
+                                <p>o haz clic para seleccionar • PDF</p>
+                            </div>
+                        </div>
+                        <div class="file-list" id="fileList"></div>
+                    </div>
+
+                    <!-- Settings Panel (PDF Mode) -->
+                    <div class="settings-panel fade-in delay-3" id="pdfSettings">
+                        <div class="settings-title">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <h3>Configuración</h3>
+                        </div>
+                        
+                        <div class="settings-grid">
+                            <div>
+                                <label class="setting-item">
+                                    <span>Calidad</span>
+                                </label>
+                                <select class="setting-select" id="quality">
+                                    <option value="Estandar">Estandar (150 DPI)</option>
+                                    <option value="HD" selected>HD (300 DPI)</option>
+                                    <option value="Ultra">Ultra (600 DPI)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <span style="font-size: 14px; font-weight: 500; color: #0A2640;">Auto-recorte</span>
+                                <div class="toggle-switch active" id="toggleAutoCrop" onclick="toggleSwitch('autoCrop')">
+                                    <div class="toggle-dot"></div>
+                                </div>
+                                <input type="hidden" id="autoCrop" value="true">
+                            </div>
+                            
+                            <div class="setting-item">
+                                <span style="font-size: 14px; font-weight: 500; color: #0A2640;">Generar Word</span>
+                                <div class="toggle-switch active" id="toggleGenWord" onclick="toggleSwitch('genWord')">
+                                    <div class="toggle-dot"></div>
+                                </div>
+                                <input type="hidden" id="genWord" value="true">
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <!-- Right Column: Buttons -->
+                <div class="right-column">
+                    <div class="button-group-vertical">
+                        <button class="btn-primary" id="processBtn">
+                            <span style="display: flex; align-items: center; gap: 8px; font-size: 16px;">
+                                🚀 INICIAR CONVERSIÓN
+                                <svg fill="currentColor" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+                                    <path d="M8 5v14l11-7z"></path>
+                                </svg>
+                            </span>
+                        </button>
+                        <button class="btn-secondary" id="btnLimpiar">🧹 Limpiar</button>
+                        <button class="btn-secondary" id="btnVolver">🏠 Volver</button>
+                    </div>
+                </div>
+                
             </div>
+            
+        </div>
+    </div>
 
             <!-- Upload Zone -->
             <div class="upload-zone fade-in delay-2" id="dropZone">
