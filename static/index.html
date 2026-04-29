@@ -292,7 +292,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
-            align-items: start;
+            align-items: flex-start;
         }
         
         .toggles-column {
@@ -303,20 +303,24 @@
         
         .calidad-column {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            flex-direction: row;
+            gap: 16px;
+            align-items: flex-start;
         }
         
-        .calidad-column span {
+        .calidad-text {
             font-size: 14px;
             font-weight: 700;
             color: #292929;
+            padding-top: 10px;
+            min-width: 80px;
         }
         
         .radio-group {
             display: flex;
             flex-direction: column;
             gap: 8px;
+            flex: 1;
         }
         
         .radio-option {
@@ -695,6 +699,45 @@
                             <div class="toggle-switch active" id="toggleAutoCrop" onclick="toggleSwitch('autoCrop')">
                                 <div class="toggle-dot"></div>
                             </div>
+                            <input type="hidden" id="autoCrop" value="true">
+                        </div>                        
+                        <div class="setting-item">
+                            <span style="font-size: 14px; font-weight: 500; color: #292929;">Generar Word</span>
+                            <div class="toggle-switch active" id="toggleGenWord" onclick="toggleSwitch('genWord')">
+                                <div class="toggle-dot"></div>
+                            </div>
+                            <input type="hidden" id="genWord" value="true">
+                        </div>
+                    </div>
+                    
+                    <div class="calidad-column">
+                        <div class="calidad-text">Calidad</div>
+                        <div class="radio-group" id="qualityGroup">
+                            <div class="radio-option" onclick="selectQuality('Estandar', this)">
+                                <div class="radio-circle">
+                                    <div class="radio-circle-inner"></div>
+                                </div>
+                                <span class="radio-label">Estandar</span>
+                                <span class="radio-dpi">150 DPI</span>
+                            </div>
+                            <div class="radio-option selected" onclick="selectQuality('HD', this)">
+                                <div class="radio-circle">
+                                    <div class="radio-circle-inner"></div>
+                                </div>
+                                <span class="radio-label">HD</span>
+                                <span class="radio-dpi">300 DPI</span>
+                            </div>
+                            <div class="radio-option" onclick="selectQuality('Ultra', this)">
+                                <div class="radio-circle">
+                                    <div class="radio-circle-inner"></div>
+                                </div>
+                                <span class="radio-label">Ultra</span>
+                                <span class="radio-dpi">600 DPI</span>
+                            </div>
+                        </div>
+                        <input type="hidden" id="quality" value="HD">
+                    </div>
+                </div>
                             <input type="hidden" id="autoCrop" value="true">
                         </div>
                         
