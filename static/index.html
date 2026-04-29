@@ -413,9 +413,50 @@
         
         .button-group {
             display: flex;
-            justify-content: center;
+            justify-content: flex-end;
             gap: 12px;
             margin-top: 32px;
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            background: #4A1E6E;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 40px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: #7C3AED;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(74, 30, 110, 0.3);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #4A1E6E;
+            border: 1px solid #EAEAEA;
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #F8F8F8;
+            border-color: #4A1E6E;
+            box-shadow: 0 2px 8px rgba(74, 30, 110, 0.1);
         }
         
         /* Floating Progress */
