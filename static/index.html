@@ -932,6 +932,13 @@
             el.style.animationPlayState = 'paused';
             observer.observe(el);
         });
+        
+        // Initialize on page load
+        document.getElementById('pdfSettings').style.display = 'block';
+        document.getElementById('modePdf').classList.add('active');
+        document.getElementById('modeImg').classList.remove('active');
+        document.querySelector('#dropContent p:last-child').textContent = 'o haz clic para seleccionar  PDF';
+        fileInput.accept = '.pdf';
     </script>
 </body>
 </html>
