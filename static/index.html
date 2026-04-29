@@ -26,10 +26,26 @@
         
         /* Header */
         .header {
-            background: #0A2640;
+            background: linear-gradient(135deg, #0A2640 0%, #1a5a3a 100%);
             width: 100%;
-            padding: 40px 0;
+            padding: 50px 0;
             text-align: center;
+            box-shadow: 0 4px 20px rgba(10, 38, 64, 0.3);
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 800;
+            color: #65E4A3;
+            letter-spacing: -0.05em;
         }
         
         .header h1 {
@@ -60,6 +76,7 @@
             border: 1px solid #EAEAEA;
             width: fit-content;
             margin: 0 auto 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
         
         .mode-btn {
@@ -94,10 +111,12 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-bottom: 24px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
         
         .upload-zone:hover {
             border-color: rgba(10, 38, 64, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
         
         .upload-zone.file-loaded {
@@ -252,6 +271,7 @@
             padding: 24px;
             margin-bottom: 24px;
             display: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
         
         .settings-title {
@@ -333,7 +353,7 @@
             height: 24px;
             background: white;
             border-radius: 50%;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
@@ -362,6 +382,7 @@
         .btn-primary:hover:not(:disabled) {
             background: #0d3a6b;
             transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(10, 38, 64, 0.3);
         }
         
         .btn-primary:active:not(:disabled) {
@@ -389,6 +410,7 @@
         
         .btn-secondary:hover {
             background: #F8F8F8;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
         
         .button-group {
@@ -409,7 +431,7 @@
             background: white;
             padding: 32px;
             border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             min-width: 400px;
             text-align: center;
         }
@@ -474,7 +496,7 @@
             color: #0A2640;
             padding: 16px 24px;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
         .success-alert.show {
@@ -537,6 +559,12 @@
             .header h1 {
                 font-size: 36px;
             }
+            
+            .logo {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+            }
         }
     </style>
 </head>
@@ -555,6 +583,7 @@
     <!-- Header -->
     <div class="header">
         <div class="container">
+            <div class="logo">A</div>
             <h1>AIRIS</h1>
             <p>Conversión inteligente de documentos</p>
         </div>
