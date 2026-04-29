@@ -13,30 +13,24 @@
         }
         
         body { 
-            background: #FAFAFA; 
+            background: linear-gradient(135deg, #7472ca 0%, #635dc4 50%, #58566e 100%);
             color: #1a1a1a; 
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header */
         .header {
-            background: linear-gradient(135deg, #7472ca 0%, #635dc4 50%, #58566e 100%);
+            background: transparent;
             width: 100%;
-            padding: 50px 0;
+            padding: 40px 20px;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(99, 93, 196, 0.3);
         }
         
         .logo {
-            width: 400px;
+            width: 300px;
             height: auto;
-            margin: 0 auto 20px;
+            margin: 0 auto 16px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -48,54 +42,43 @@
             width: 100%;
             height: auto;
             object-fit: contain;
-            border-radius: 12px;
         }
         
         .header p {
-            color: #EAEAEA;
+            color: #fbfbfc;
             font-size: 18px;
             max-width: 600px;
             margin: 0 auto;
             line-height: 1.5;
         }
         
-        /* Main content */
-        .main-content {
-            padding: 60px 0;
-        }
-        
-        .two-column-layout {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 40px;
-            align-items: start;
-        }
-        
-        .left-column {
+        .main-wrapper {
+            flex: 1;
             display: flex;
-            flex-direction: column;
-            gap: 24px;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
         
-        .right-column {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            position: sticky;
-            top: 20px;
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
         }
         
         /* Mode Selector */
         .mode-selector {
             display: flex;
             gap: 4px;
-            background: white;
+            background: #f8f8f8;
             border-radius: 50px;
             padding: 4px;
             border: 1px solid #EAEAEA;
             width: fit-content;
-            margin: 0 auto 40px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin: 0 auto 30px;
         }
         
         .mode-btn {
@@ -111,31 +94,30 @@
         }
         
         .mode-btn.active {
-            background: #0A2640;
+            background: linear-gradient(135deg, #7472ca 0%, #635dc4 100%);
             color: white;
-            box-shadow: 0 2px 8px rgba(10, 38, 64, 0.2);
+            box-shadow: 0 2px 8px rgba(99, 93, 196, 0.3);
         }
         
         .mode-btn:not(.active):hover {
-            color: #0A2640;
+            color: #635dc4;
         }
         
         /* Upload Zone */
         .upload-zone {
-            background: white;
-            border: 2px dashed #EAEAEA;
+            background: #FAFAFA;
+            border: 2px dashed #8d8cd6;
             border-radius: 16px;
             padding: 48px 24px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-bottom: 24px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
         
         .upload-zone:hover {
-            border-color: rgba(10, 38, 64, 0.3);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-color: #7472ca;
+            background: #fbfbfc;
         }
         
         .upload-zone.file-loaded {
@@ -148,7 +130,7 @@
             width: 64px;
             height: 64px;
             margin: 0 auto 16px;
-            background: rgba(10, 38, 64, 0.05);
+            background: rgba(116, 114, 202, 0.1);
             border-radius: 16px;
             display: flex;
             align-items: center;
@@ -158,11 +140,11 @@
         .upload-icon svg {
             width: 28px;
             height: 28px;
-            color: #0A2640;
+            color: #635dc4;
         }
         
         .upload-text h3 {
-            color: #0A2640;
+            color: #292929;
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 8px;
@@ -182,7 +164,6 @@
             padding-right: 8px;
         }
         
-        /* Scrollbar styles */
         .file-list::-webkit-scrollbar {
             width: 6px;
         }
@@ -193,12 +174,8 @@
         }
         
         .file-list::-webkit-scrollbar-thumb {
-            background: #0A2640;
+            background: #635dc4;
             border-radius: 3px;
-        }
-        
-        .file-list::-webkit-scrollbar-thumb:hover {
-            background: #0d3a6b;
         }
         
         .file-item {
@@ -238,7 +215,7 @@
         .file-icon svg {
             width: 18px;
             height: 18px;
-            color: #0A2640;
+            color: #635dc4;
         }
         
         .file-info {
@@ -249,7 +226,7 @@
         .file-name {
             font-size: 14px;
             font-weight: 500;
-            color: #0A2640;
+            color: #292929;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -284,13 +261,12 @@
         
         /* Settings Panel */
         .settings-panel {
-            background: white;
+            background: #FAFAFA;
             border: 1px solid #EAEAEA;
             border-radius: 16px;
             padding: 24px;
             margin-bottom: 24px;
             display: none;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
         
         .settings-title {
@@ -303,13 +279,13 @@
         .settings-title svg {
             width: 18px;
             height: 18px;
-            color: #0A2640;
+            color: #635dc4;
         }
         
         .settings-title h3 {
             font-size: 16px;
             font-weight: 600;
-            color: #0A2640;
+            color: #292929;
         }
         
         .settings-grid {
@@ -327,24 +303,24 @@
         .setting-item label {
             font-size: 14px;
             font-weight: 500;
-            color: #0A2640;
+            color: #292929;
         }
         
         .setting-select {
             width: 100%;
             padding: 12px;
-            background: #F8F8F8;
+            background: white;
             border: 1px solid #EAEAEA;
             border-radius: 12px;
             font-size: 14px;
-            color: #0A2640;
+            color: #292929;
             font-weight: 500;
             margin-top: 8px;
         }
         
         .setting-select:focus {
             outline: none;
-            border-color: #0A2640;
+            border-color: #7472ca;
         }
         
         /* Toggle Switch */
@@ -360,8 +336,8 @@
         }
         
         .toggle-switch.active {
-            background: #65E4A3;
-            border-color: #65E4A3;
+            background: #7472ca;
+            border-color: #7472ca;
         }
         
         .toggle-dot {
@@ -378,83 +354,24 @@
         
         .toggle-switch.active .toggle-dot {
             transform: translateX(20px);
-            background: #0A2640;
-        }
-        
-        /* Buttons */
-        .btn-primary {
-            background: #0A2640;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 16px 40px;
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .btn-primary:hover:not(:disabled) {
-            background: #0d3a6b;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(10, 38, 64, 0.3);
-        }
-        
-        .btn-primary:active:not(:disabled) {
-            transform: translateY(0);
-        }
-        
-        .btn-primary:disabled {
-            background: #EAEAEA;
-            color: #627E84;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .btn-secondary {
             background: white;
-            color: #0A2640;
-            border: 1px solid #EAEAEA;
-            border-radius: 12px;
-            padding: 12px 24px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .btn-secondary:hover {
-            background: #F8F8F8;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-        
-        /* Buttons Vertical */
-        .button-group-vertical {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        
-        .button-group-vertical .btn-primary,
-        .button-group-vertical .btn-secondary {
-            width: 100%;
-            justify-content: center;
-            font-size: 16px;
-            padding: 20px 32px;
         }
         
         /* Buttons */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 32px;
+        }
+        
         .btn-primary {
             background: linear-gradient(135deg, #7472ca 0%, #635dc4 100%);
             color: white;
             border: none;
             border-radius: 12px;
-            padding: 16px 40px;
-            font-size: 14px;
+            padding: 18px 40px;
+            font-size: 16px;
             font-weight: 700;
             letter-spacing: 0.1em;
             cursor: pointer;
@@ -476,8 +393,8 @@
             color: #635dc4;
             border: 2px solid #8d8cd6;
             border-radius: 12px;
-            padding: 12px 24px;
-            font-size: 14px;
+            padding: 16px 24px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -486,7 +403,6 @@
         .btn-secondary:hover {
             background: #fbfbfc;
             border-color: #635dc4;
-            box-shadow: 0 2px 8px rgba(99, 93, 196, 0.1);
         }
         
         /* Floating Progress */
@@ -529,7 +445,7 @@
         .progress-status {
             font-size: 18px;
             font-weight: 600;
-            color: #0A2640;
+            color: #292929;
             margin-bottom: 16px;
         }
         
@@ -543,7 +459,7 @@
         
         .progress-bar {
             height: 100%;
-            background: #65E4A3;
+            background: linear-gradient(90deg, #7472ca 0%, #635dc4 100%);
             border-radius: 6px;
             transition: width 0.3s ease;
             width: 0%;
@@ -562,7 +478,7 @@
             right: 20px;
             z-index: 1001;
             background: #65E4A3;
-            color: #0A2640;
+            color: #292929;
             padding: 16px 24px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -592,47 +508,38 @@
         
         /* Footer */
         .footer {
-            border-top: 1px solid #EAEAEA;
-            margin-top: 64px;
-            padding: 24px 0;
             text-align: center;
-        }
-        
-        .footer p {
+            padding: 20px;
+            color: #fbfbfc;
             font-size: 12px;
-            color: #627E84;
             font-weight: 500;
         }
         
-        /* Fade-in animation */
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .footer a {
+            color: #fbfbfc;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .delay-1 { animation-delay: 80ms; }
-        .delay-2 { animation-delay: 160ms; }
-        .delay-3 { animation-delay: 240ms; }
-        .delay-4 { animation-delay: 320ms; }
-        
+        /* Responsive */
         @media (max-width: 768px) {
+            .container {
+                padding: 24px;
+            }
+            
             .settings-grid {
                 grid-template-columns: 1fr;
             }
             
-            .header h1 {
-                font-size: 36px;
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
             }
             
             .logo {
-                width: 60px;
-                height: 60px;
-                font-size: 28px;
+                width: 200px;
             }
         }
     </style>
@@ -651,114 +558,123 @@
 
     <!-- Header -->
     <div class="header">
+        <div class="logo">
+            <img src="/static/images.jpg" alt="AIRIS Logo">
+        </div>
+        <p>Conversión de archivos PDF a .Doc</p>
+    </div>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
         <div class="container">
-            <div class="logo">
-                <img src="/static/images.jpg" alt="AIRIS Logo">
+            <!-- Mode Selector -->
+            <div class="mode-selector">
+                <button class="mode-btn active" id="modePdf">PDF a Imagen</button>
+                <button class="mode-btn" id="modeImg">Solo Word</button>
             </div>
-            <p>Conversión de archivos PDF a .Doc</p>
+
+            <!-- Upload Zone -->
+            <div class="upload-zone" id="dropZone">
+                <input type="file" id="fileInput" multiple style="display: none;">
+                <div class="upload-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                </div>
+                <div id="dropContent">
+                    <div class="upload-text">
+                        <h3>Arrastra archivos aquí</h3>
+                        <p>o haz clic para seleccionar • PDF</p>
+                    </div>
+                </div>
+                <div class="file-list" id="fileList"></div>
+            </div>
+
+            <!-- Settings Panel (PDF Mode) -->
+            <div class="settings-panel" id="pdfSettings">
+                <div class="settings-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <h3>Configuración</h3>
+                </div>
+                
+                <div class="settings-grid">
+                    <div>
+                        <label class="setting-item">
+                            <span>Calidad</span>
+                        </label>
+                        <select class="setting-select" id="quality">
+                            <option value="Estandar">Estandar (150 DPI)</option>
+                            <option value="HD" selected>HD (300 DPI)</option>
+                            <option value="Ultra">Ultra (600 DPI)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <span style="font-size: 14px; font-weight: 500; color: #292929;">Auto-recorte</span>
+                        <div class="toggle-switch active" id="toggleAutoCrop" onclick="toggleSwitch('autoCrop')">
+                            <div class="toggle-dot"></div>
+                        </div>
+                        <input type="hidden" id="autoCrop" value="true">
+                    </div>
+                    
+                    <div class="setting-item">
+                        <span style="font-size: 14px; font-weight: 500; color: #292929;">Generar Word</span>
+                        <div class="toggle-switch active" id="toggleGenWord" onclick="toggleSwitch('genWord')">
+                            <div class="toggle-dot"></div>
+                        </div>
+                        <input type="hidden" id="genWord" value="true">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <button class="btn-secondary" id="btnLimpiar">🧹 Limpiar</button>
+                <button class="btn-primary" id="processBtn">
+                    <span style="display: flex; align-items: center; gap: 8px;">
+                        🚀 INICIAR CONVERSIÓN
+                        <svg fill="currentColor" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+                            <path d="M8 5v14l11-7z"></path>
+                        </svg>
+                    </span>
+                </button>
+                <button class="btn-secondary" id="btnVolver">🏠 Volver</button>
+            </div>
         </div>
     </div>
 
-    <!-- Main Container -->
-    <div class="main-content">
-        <div class="container">
-            
-            <div class="two-column-layout">
-                <!-- Left Column -->
-                <div class="left-column">
-                    
-                    <!-- Mode Selector -->
-                    <div class="mode-selector fade-in delay-1">
-                        <button class="mode-btn active" id="modePdf">PDF a Imagen</button>
-                        <button class="mode-btn" id="modeImg">Solo Word</button>
-                    </div>
+    <!-- Floating Progress Modal -->
+    <div class="floating-progress" id="floatingProgress">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; justify-content: center;">
+            <svg class="progress-spinner" fill="none" stroke="#635dc4" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            <span class="progress-status" id="statusText">Procesando...</span>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <p class="progress-details" id="progressDetails">Iniciando...</p>
+    </div>
 
-                    <!-- Upload Zone -->
-                    <div class="upload-zone fade-in delay-2" id="dropZone">
-                        <input type="file" id="fileInput" multiple style="display: none;">
-                        <div class="upload-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                            </svg>
-                        </div>
-                        <div id="dropContent">
-                            <div class="upload-text">
-                                <h3>Arrastra archivos aquí</h3>
-                                <p>o haz clic para seleccionar • PDF</p>
-                            </div>
-                        </div>
-                        <div class="file-list" id="fileList"></div>
-                    </div>
-
-                    <!-- Settings Panel (PDF Mode) -->
-                    <div class="settings-panel fade-in delay-3" id="pdfSettings">
-                        <div class="settings-title">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                            <h3>Configuración</h3>
-                        </div>
-                        
-                        <div class="settings-grid">
-                            <div>
-                                <label class="setting-item">
-                                    <span>Calidad</span>
-                                </label>
-                                <select class="setting-select" id="quality">
-                                    <option value="Estandar">Estandar (150 DPI)</option>
-                                    <option value="HD" selected>HD (300 DPI)</option>
-                                    <option value="Ultra">Ultra (600 DPI)</option>
-                                </select>
-                            </div>
-                            
-                            <div class="setting-item">
-                                <span style="font-size: 14px; font-weight: 500; color: #0A2640;">Auto-recorte</span>
-                                <div class="toggle-switch active" id="toggleAutoCrop" onclick="toggleSwitch('autoCrop')">
-                                    <div class="toggle-dot"></div>
-                                </div>
-                                <input type="hidden" id="autoCrop" value="true">
-                            </div>
-                            
-                            <div class="setting-item">
-                                <span style="font-size: 14px; font-weight: 500; color: #0A2640;">Generar Word</span>
-                                <div class="toggle-switch active" id="toggleGenWord" onclick="toggleSwitch('genWord')">
-                                    <div class="toggle-dot"></div>
-                                </div>
-                                <input type="hidden" id="genWord" value="true">
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-                
-                <!-- Right Column: Buttons -->
-                <div class="right-column">
-                    <div class="button-group-vertical">
-                        <button class="btn-primary" id="processBtn">
-                            <span style="display: flex; align-items: center; gap: 8px; font-size: 16px;">
-                                🚀 INICIAR CONVERSIÓN
-                                <svg fill="currentColor" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
-                                    <path d="M8 5v14l11-7z"></path>
-                                </svg>
-                            </span>
-                        </button>
-                        <button class="btn-secondary" id="btnLimpiar">🧹 Limpiar</button>
-                        <button class="btn-secondary" id="btnVolver">🏠 Volver</button>
-                    </div>
-                </div>
-                
-            </div>
-            
+    <!-- Success Alert -->
+    <div class="success-alert" id="successAlert">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <div>
+            <p style="font-weight: 600;">¡Proceso completado!</p>
+            <a id="downloadLink" href="#" style="font-size: 14px;">Descargar Word</a>
         </div>
     </div>
 
     <!-- Footer -->
     <div class="footer">
-        <div class="container">
-            <p>Desarrollado por Jorge Meneses | jorge.meneses@airis-ae.com.mx</p>
-            <p style="margin-top: 8px;">© 2026 AIRIS SUITE. Todos los derechos reservados.</p>
-        </div>
+        <p>Desarrollado por Jorge Meneses | jorge.meneses@airis-ae.com.mx</p>
+        <p style="margin-top: 8px;">© 2026 AIRIS SUITE. Todos los derechos reservados.</p>
     </div>
 
     <script>
@@ -847,18 +763,18 @@
 
         dropZone.addEventListener('dragover', function(e) {
             e.preventDefault();
-            dropZone.style.borderColor = 'rgba(10, 38, 64, 0.3)';
+            dropZone.style.borderColor = '#7472ca';
         });
 
         dropZone.addEventListener('dragleave', function() {
             if (files.length === 0) {
-                dropZone.style.borderColor = '#EAEAEA';
+                dropZone.style.borderColor = '#8d8cd6';
             }
         });
 
         dropZone.addEventListener('drop', function(e) {
             e.preventDefault();
-            dropZone.style.borderColor = '#EAEAEA';
+            dropZone.style.borderColor = '#8d8cd6';
             const newFiles = Array.from(e.dataTransfer.files).filter(function(f) {
                 return mode === 'pdf' ? f.type === 'application/pdf' : f.type.startsWith('image/');
             });
@@ -976,25 +892,11 @@
             processBtn.disabled = false;
         });
 
-        // Fade-in animation
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.fade-in').forEach(function(el) {
-            el.style.animationPlayState = 'paused';
-            observer.observe(el);
-        });
-        
         // Initialize on page load
         document.getElementById('pdfSettings').style.display = 'block';
         document.getElementById('modePdf').classList.add('active');
         document.getElementById('modeImg').classList.remove('active');
-        document.querySelector('#dropContent p:last-child').textContent = 'o haz clic para seleccionar  PDF';
+        document.querySelector('#dropContent p:last-child').textContent = 'o haz clic para seleccionar • PDF';
         fileInput.accept = '.pdf';
     </script>
 </body>
