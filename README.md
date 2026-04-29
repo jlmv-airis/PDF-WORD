@@ -1,8 +1,8 @@
-# AIRIS v1.1 - PDF to Word Converter
+# AIRIS v1.0 - PDF to Word Converter
 
 AIRIS es una aplicación de escritorio y web para la conversión inteligente de archivos PDF a imágenes de alta calidad y su posterior compilación en documentos Word (.docx).
 
-## Características
+## ✨ Características
 
 - ✅ Conversión masiva de PDF a imágenes (JPEG) con calidad configurable
 - ✅ Generación automática de documentos Word con imágenes centradas
@@ -13,21 +13,63 @@ AIRIS es una aplicación de escritorio y web para la conversión inteligente de 
 - ✅ Modo "Solo Word" para compilar imágenes existentes
 - ✅ Eliminación automática de archivos temporales tras la descarga
 
-## Requisitos
+## 🚀 Ejecución y Distribución
 
-- Python 3.8 o superior
-- pip (gestor de paquetes de Python)
+### Opción 1: Uso Local (Requiere Python)
 
-### Dependencias de Python
+1. **Instalar dependencias:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
+2. **Ejecutar la aplicación:**
+   ```bash
+   python backend/app.py
+   ```
+
+3. **Abrir en el navegador:**
+   - Ir a: http://localhost:5000/
+
+### Opción 2: Ejecutable para Windows (Sin necesidad de Python)
+
+1. **Instalar PyInstaller:**
+   ```bash
+   pip install pyinstaller
+   ```
+
+2. **Crear el ejecutable:**
+   ```bash
+   cd "C:\ruta\hacia\PDF-WORD"
+   pyinstaller --onefile --add-data "backend;backend" --add-data "static;static" backend/app.py --name AIRIS_SUITE
+   ```
+
+3. **El ejecutable se creará en:** `dist/AIRIS_SUITE.exe`
+
+4. **Distribuir:**
+   - Comparte el archivo `AIRIS_SUITE.exe` con los usuarios
+   - Los usuarios solo deben hacer doble clic en el archivo
+   - Se abrirá una ventana de consola y el navegador automáticamente
+
+### Opción 3: Script de Inicio Rápido (Windows)
+
+Crear un archivo `INICIAR_AIRIS.bat`:
+```batch
+@echo off
+cd "%~dp0"
+python backend/app.py
 ```
-flask
-PyMuPDF  # Para procesamiento de PDF
-Pillow   # Para manipulación de imágenes
-python-docx  # Para generación de Word
-```
 
-## Instalación
+Los usuarios solo deben hacer doble clic en `INICIAR_AIRIS.bat`
+
+### Notas importantes:
+- El puerto predeterminado es **5000**
+- Los archivos convertidos se descargan automáticamente
+- La aplicación se cierra al cerrar la ventana de consola
+- Para usar en red local, cambiar `app.run(debug=True, port=5000)` por `app.run(host='0.0.0.0', port=5000)` en `backend/app.py`
+
+> Para instrucciones detalladas, consulta el archivo [INSTRUCCIONES_USO.md](INSTRUCCIONES_USO.md)
+
+## 📦 Instalación
 
 ### Windows
 
@@ -55,7 +97,7 @@ python-docx  # Para generación de Word
    ```
 
 5. **Acceder a la interfaz:**
-   Abrir el navegador y entrar a: `http://localhost:5000/`
+    Abrir el navegador y entrar a: `http://localhost:5000/`
 
 ### macOS
 
@@ -83,9 +125,9 @@ python-docx  # Para generación de Word
    ```
 
 5. **Acceder a la interfaz:**
-   Abrir el navegador y entrar a: `http://localhost:5000/`
+    Abrir el navegador y entrar a: `http://localhost:5000/`
 
-## Uso
+## 🎯 Uso
 
 ### Modo PDF a Imagen + Word
 
@@ -103,7 +145,7 @@ python-docx  # Para generación de Word
 3. Presiona "INICIAR CONVERSIÓN"
 4. Descarga el archivo Word compilado
 
-## Estructura del Proyecto
+## 📁 Estructura del Proyecto
 
 ```
 PDF-WORD/
@@ -118,21 +160,23 @@ PDF-WORD/
 ├── outputs/                # Archivos generados temporalmente
 ├── .gitignore
 ├── .env.example
+├── requirements.txt       # Dependencias de Python
+├── INSTRUCCIONES_USO.md # Guía detallada
 └── README.md
 ```
 
-## Notas
+## 📝 Notas
 
 - Los archivos subidos y generados se eliminan automáticamente después de la descarga
 - Para archivos PDF muy grandes (más de 50 páginas), el procesamiento puede tardar unos minutos
 - La aplicación de escritorio (desktop-app) requiere dependencias adicionales: `customtkinter`, `tkinterdnd2`
 
-## Desarrollado por
+## 👤 Desarrollado por
 
-**Jorge Meneses** - AIRIS SUITE v1.1
+**Jorge Meneses** - AIRIS SUITE v1.0
 
 Contacto: jorge.meneses@airis-ae.com.mx
 
-## Licencia
+## 📄 Licencia
 
 Este proyecto es de uso libre para fines educativos y comerciales.
