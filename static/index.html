@@ -695,6 +695,25 @@
             display: block;
             animation: modalFadeIn 0.3s ease;
         }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
         
         @keyframes modalFadeIn {
             from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
@@ -1077,6 +1096,7 @@
 
     <!-- Floating Progress Modal -->
     <div class="floating-progress" id="floatingProgress">
+        <button class="modal-close-btn" onclick="closeProgressModal()">✕</button>
         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; justify-content: center;">
             <svg class="progress-spinner" fill="none" stroke="var(--primary)" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
@@ -1201,6 +1221,19 @@
                 }, 300);
             }, 10000);
         }
+
+        function closeProgressModal() {
+            document.getElementById('floatingProgress').classList.remove('show');
+            document.getElementById('modalBackdrop').classList.remove('show');
+            showToast('Proceso cancelado por el usuario', 'info');
+        }
+
+        // Cerrar modal al hacer clic fuera (en el backdrop)
+        document.getElementById('modalBackdrop').addEventListener('click', function() {
+            if (document.getElementById('floatingProgress').classList.contains('show')) {
+                closeProgressModal();
+            }
+        });
 
         function goToHome() {
             mode = 'pdf';
