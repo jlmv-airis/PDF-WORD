@@ -761,6 +761,29 @@
             display: block;
             animation: modalFadeIn 0.3s ease;
         }
+
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+
+        .modal-backdrop.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
         
         .success-icon {
             width: 48px;
@@ -1082,6 +1105,9 @@
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
+    <!-- Modal Backdrop -->
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+
     <!-- Footer -->
     <div class="footer">
         <p>Desarrollado por Jorge Meneses | jorge.meneses@airis-ae.com.mx</p>
@@ -1318,6 +1344,7 @@
             processBtn.classList.add('loading');
             processBtn.innerHTML = '<span style="display:flex;align-items:center;gap:8px;">⏳ Procesando...</span>';
             floatingProgress.classList.add('show');
+            document.getElementById('modalBackdrop').classList.add('show');
             progressBar.style.width = '10%';
             progressDetails.textContent = 'Subiendo archivos...';
 
@@ -1352,7 +1379,9 @@
                 if (data.ready) {
                     setTimeout(function() {
                         floatingProgress.classList.remove('show');
+                        document.getElementById('modalBackdrop').classList.remove('show');
                         successModal.classList.add('show');
+                        document.getElementById('modalBackdrop').classList.add('show');
                         showToast('¡Conversión completada!', 'success');
                         
                         const filename = data.filename || 'Imagenes.docx';
@@ -1369,13 +1398,17 @@
                         // Cerrar modal automaticamente despues de 10 seg o al hacer clic
                         setTimeout(function() {
                             successModal.classList.remove('show');
+                            document.getElementById('modalBackdrop').classList.remove('show');
                         }, 10000);
                     }, 500);
                 }
             } catch (e) {
                 progressDetails.textContent = 'Error: ' + e.message;
                 showToast('Error: ' + e.message, 'error');
-                setTimeout(function() { floatingProgress.classList.remove('show'); }, 2000);
+                setTimeout(function() { 
+                        floatingProgress.classList.remove('show');
+                        document.getElementById('modalBackdrop').classList.remove('show'); 
+                    }, 2000);
             }
 
             processBtn.disabled = false;
