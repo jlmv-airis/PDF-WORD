@@ -681,16 +681,17 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 1000;
+            z-index: 1001;
             background: var(--bg-card);
             padding: 32px;
+            padding-top: 45px;
             border-radius: 16px;
             box-shadow: 0 10px 25px var(--shadow);
             min-width: 350px;
             text-align: center;
             transition: background 0.3s ease;
         }
-        
+
         .floating-progress.show {
             display: block;
             animation: modalFadeIn 0.3s ease;
@@ -771,11 +772,13 @@
             z-index: 1001;
             background: var(--bg-card);
             padding: 32px;
+            padding-top: 45px;
             border-radius: 16px;
             box-shadow: 0 10px 25px var(--shadow);
             min-width: 350px;
             text-align: center;
             transition: background 0.3s ease;
+            position: relative;
         }
         
         .success-modal.show {
@@ -1114,6 +1117,7 @@
 
     <!-- Success Modal -->
     <div class="success-modal" id="successModal">
+        <button class="modal-close-btn" onclick="closeSuccessModal()">✕</button>
         <div class="success-icon">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -1231,10 +1235,18 @@
             showToast('Proceso cancelado por el usuario', 'info');
         }
 
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.remove('show');
+            document.getElementById('modalBackdrop').classList.remove('show');
+        }
+
         // Cerrar modal al hacer clic fuera (en el backdrop)
         document.getElementById('modalBackdrop').addEventListener('click', function() {
             if (document.getElementById('floatingProgress').classList.contains('show')) {
                 closeProgressModal();
+            }
+            if (document.getElementById('successModal').classList.contains('show')) {
+                closeSuccessModal();
             }
         });
 
