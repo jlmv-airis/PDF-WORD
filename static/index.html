@@ -1366,10 +1366,10 @@
                             downloadLink.click();
                         }, 500);
 
-                        // Cerrar modal al hacer clic en descargar
-                        document.getElementById('successModal').addEventListener('click', function() {
+                        // Cerrar modal automaticamente despues de 10 seg o al hacer clic
+                        setTimeout(function() {
                             successModal.classList.remove('show');
-                        });
+                        }, 10000);
                     }, 500);
                 }
             } catch (e) {
