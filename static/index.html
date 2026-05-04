@@ -807,7 +807,7 @@
         /* Toast Notifications */
         .toast-container {
             position: fixed;
-            top: 20px;
+            bottom: 20px;
             right: 20px;
             z-index: 2000;
             display: flex;
@@ -919,9 +919,9 @@
             }
 
             .toast-container {
-                top: 10px;
-                right: 10px;
-                left: 10px;
+                bottom: 20px;
+                right: 20px;
+                left: 20px;
             }
 
             .toast {
@@ -1366,10 +1366,9 @@
                             downloadLink.click();
                         }, 500);
 
-                        // El modal se cierra al hacer clic en descargar
-                        document.getElementById('successModal').addEventListener('click', function closeModal() {
+                        // Cerrar modal al hacer clic en descargar
+                        document.getElementById('successModal').addEventListener('click', function() {
                             successModal.classList.remove('show');
-                            document.getElementById('successModal').removeEventListener('click', closeModal);
                         });
                     }, 500);
                 }
