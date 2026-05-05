@@ -1,23 +1,33 @@
 # AIRIS SUITE v1.0
 
-Aplicación para conversión de PDF a imágenes de alta calidad y compilación en documentos Word (.docx).
+> **Estado:** ✅ Producción estable | **Rama principal:** `main` | **Última actualización:** Mayo 2026
 
-## Características
+Aplicación profesional para conversión de PDF a imágenes de alta calidad y compilación automática en documentos Word (.docx).
 
-- Conversión masiva de PDF a imágenes (JPEG) con calidad configurable
-- Generación automática de documentos Word con imágenes centradas
-- Interfaz web minimalista y moderna con modo oscuro
-- Procesamiento paralelo para máxima velocidad
-- Auto-recorte inteligente de márgenes blancos
-- Múltiples niveles de calidad: Estándar (150 DPI), HD (300 DPI), Ultra (600 DPI)
-- Modo "Solo Word" para compilar imágenes existentes
+## ✨ Características Principales
 
-## Tecnologías
+- **Conversión masiva** de PDF a imágenes JPEG con calidad configurable
+- **Generación automática** de documentos Word con imágenes centradas y márgenes optimizados
+- **Interfaz web moderna** con diseño responsive y modo oscuro/claro
+- **Procesamiento paralelo** multi-hilo para máxima velocidad (utiliza todos los núcleos CPU)
+- **Auto-recorte inteligente** de márgenes blancos con detección de bordes
+- **Tres niveles de calidad:**
+  - 📄 Estándar (150 DPI) - Rápido
+  - 📄 HD (300 DPI) - Equilibrado
+  - 📄 Ultra (600 DPI) - Máxima calidad
+- **Modo "Solo Word"** para compilar imágenes existentes (JPG/PNG) en un solo documento
+- **Limpieza automática** de archivos temporales después de la descarga
+- **Soporte PyInstaller** para crear ejecutables independientes (.exe)
 
-- **Backend**: Python + Flask
-- **Procesamiento**: PyMuPDF, Pillow, python-docx
-- **Interfaz**: HTML5 + CSS3 + JavaScript
-- **Escritorio**: CustomTkinter (opcional)
+## 🛠️ Tecnologías
+
+| Capa | Tecnologías |
+|------|-------------|
+| **Backend** | Python 3.7+ + Flask |
+| **Procesamiento** | PyMuPDF (fitz), Pillow, python-docx |
+| **Interfaz** | HTML5 + CSS3 + JavaScript (Vanilla) |
+| **Tipografía** | Manrope (Google Fonts) |
+| **Escritorio** | CustomTkinter + tkinterdnd2 (opcional) |
 
 ---
 
@@ -25,104 +35,74 @@ Aplicación para conversión de PDF a imágenes de alta calidad y compilación e
 
 ### Prerrequisitos
 
-- Python 3.7 o superior instalado en tu sistema
-- pip (gestor de paquetes de Python)
+- Python 3.7 o superior
+- pip (gestor de paquetes)
 
 ### Windows
 
-1. **Descargar el proyecto:**
-   ```cmd
-   git clone https://github.com/jlmv-airis/PDF_IMG_WORD.git
-   cd PDF_IMG_WORD
-   ```
+```cmd
+:: Clonar repositorio
+git clone https://github.com/jlmv-airis/PDF-WORD.git
+cd PDF-WORD
 
-2. **Crear entorno virtual (recomendado):**
-   ```cmd
-   python -m venv venv
-   venv\Scripts\activate
-   ```
+:: (Opcional) Crear entorno virtual
+python -m venv venv
+venv\Scripts\activate
 
-3. **Instalar dependencias:**
-   ```cmd
-   pip install -r requirements.txt
-   ```
+:: Instalar dependencias
+pip install -r requirements.txt
 
-4. **Ejecutar la aplicación:**
-   ```cmd
-   python backend\app.py
-   ```
+:: Ejecutar aplicación
+python backend\app.py
+```
 
-5. **Abrir en el navegador:**
-   - Ir a: http://localhost:5000/
+Luego abrir: **http://localhost:5000/**
 
 ### macOS / Linux
 
-1. **Descargar el proyecto:**
-   ```bash
-   git clone https://github.com/jlmv-airis/PDF_IMG_WORD.git
-   cd PDF_IMG_WORD
-   ```
+```bash
+# Clonar repositorio
+git clone https://github.com/jlmv-airis/PDF-WORD.git
+cd PDF-WORD
 
-2. **Crear entorno virtual (recomendado):**
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
+# (Opcional) Crear entorno virtual
+python3 -m venv venv
+source venv/bin/activate
 
-3. **Instalar dependencias:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+# Instalar dependencias
+pip install -r requirements.txt
 
-4. **Ejecutar la aplicación:**
-   ```bash
-   python3 backend/app.py
-   ```
+# Ejecutar aplicación
+python3 backend/app.py
+```
 
-5. **Abrir en el navegador:**
-   - Ir a: http://localhost:5000/
+Luego abrir: **http://localhost:5000/**
 
 ---
 
-## 📦 Crear Ejecutable (.exe)
+## 📦 Crear Ejecutable (.exe) con PyInstaller
 
 ### Windows
 
-1. **Instalar PyInstaller:**
-   ```cmd
-   pip install pyinstaller
-   ```
+```cmd
+:: Instalar PyInstaller
+pip install pyinstaller
 
-2. **Crear el ejecutable:**
-   ```cmd
-   pyinstaller --onefile --add-data "backend;backend" --add-data "static;static" backend/app.py --name AIRIS_SUITE
-   ```
+:: Crear ejecutable único
+pyinstaller --onefile --add-data "backend;backend" --add-data "static;static" backend/app.py --name AIRIS_SUITE
 
-3. **El ejecutable se creará en:** `dist/AIRIS_SUITE.exe`
+:: El ejecutable estará en:
+dist/AIRIS_SUITE.exe
+```
 
-4. **Ejecutar:**
-   - Doble clic en `AIRIS_SUITE.exe`
-   - Se abrirá automáticamente el navegador
-
-### Para distribución
-
-1. Copiar el archivo `dist/AIRIS_SUITE.exe`
-2. Compartir con los usuarios
-3. Los usuarios solo deben hacer doble clic para ejecutar
+El ejecutable detecta automáticamente el modo PyInstaller y configura las rutas correctas.
 
 ---
 
 ## 🖥️ Aplicación de Escritorio (Opcional)
 
-### Instalación de dependencias adicionales:
-
 ```bash
 pip install customtkinter tkinterdnd2
-```
-
-### Ejecución:
-
-```bash
 python desktop-app/AIRIS_Converter.py
 ```
 
@@ -131,39 +111,37 @@ python desktop-app/AIRIS_Converter.py
 ## 📁 Estructura del Proyecto
 
 ```
-PDF_IMG_WORD/
+PDF-WORD/
 ├── backend/
-│   ├── app.py              # Servidor Flask principal
-│   ├── uploads/            # Archivos subidos temporalmente
-│   └── outputs/            # Archivos generados temporalmente
+│   └── app.py              # Servidor Flask + lógica de conversión
 ├── static/
-│   ├── index.html         # Interfaz web
-│   └── images.jpg         # Logo
+│   └── index.html          # Interfaz web (1446+ líneas, modo oscuro)
 ├── desktop-app/
-│   ├── AIRIS_Converter.py # App de escritorio
-│   └── worker.py          # Worker para procesamiento
-├── requirements.txt       # Dependencias de Python
-└── README.md             # Este archivo
+│   ├── AIRIS_Converter.py  # App de escritorio
+│   └── worker.py           # Worker de procesamiento
+├── docs/                   # Documentación adicional
+├── requirements.txt        # Dependencias (flask, PyMuPDF, Pillow, python-docx)
+└── README.md
 ```
 
 ---
 
 ## 🌙 Modo Oscuro
 
-La aplicación incluye modo oscuro. Toggle en la esquina superior derecha para cambiar entre modo claro y oscuro.
+La interfaz incluye modo oscuro nativo. Haz clic en el toggle en la esquina superior derecha.
 
 ---
 
-## 📝 Uso de la Interfaz
+## 📝 Guía de Uso
 
-### Modo PDF a Imagen + Word:
+### Modo PDF → Imagen + Word
 1. Arrastra archivos PDF o haz clic para seleccionar
-2. Configura la calidad (Estándar/HD/Ultra)
-3. Activa/desactiva auto-recorte y generación de Word
+2. Selecciona calidad (Estándar/HD/Ultra)
+3. Configura opciones: auto-recorte y generación de Word
 4. Presiona "INICIAR CONVERSIÓN"
-5. Descarga el archivo Word automáticamente
+5. Descarga el archivo Word con las imágenes integradas
 
-### Modo Solo Word:
+### Modo Solo Word
 1. Selecciona "Solo Word" en la barra superior
 2. Arrastra imágenes (JPG/PNG)
 3. Presiona "INICIAR CONVERSIÓN"
@@ -173,17 +151,12 @@ La aplicación incluye modo oscuro. Toggle en la esquina superior derecha para c
 
 ## 🔧 Solución de Problemas
 
-### Error: "Python no se reconoce como comando"
-- Agregar Python al PATH de Windows o usar la ruta completa
-
-### Error: "Port 5000 en uso"
-- Cambiar el puerto en `backend/app.py`:
-  ```python
-  app.run(debug=False, port=5001)
-  ```
-
-### Error: "ModuleNotFoundError"
-- Ejecutar: `pip install -r requirements.txt`
+| Error | Solución |
+|-------|----------|
+| `Python no se reconoce como comando` | Agregar Python al PATH o usar ruta completa |
+| `Port 5000 en uso` | Cambiar puerto en `backend/app.py`: `app.run(port=5001)` |
+| `ModuleNotFoundError` | Ejecutar: `pip install -r requirements.txt` |
+| Error de permisos en Windows | Ejecutar terminal como administrador |
 
 ---
 
@@ -195,4 +168,4 @@ Uso libre para fines educativos y comerciales.
 
 **Desarrollado por Jorge Meneses**  
 Contacto: jorge.meneses@airis-ae.com.mx  
-© 2026 AIRIS SUITE. Todos los derechos reservados.
+© 2026 AIRIS SUITE v1.0 | [GitHub](https://github.com/jlmv-airis/PDF-WORD)
