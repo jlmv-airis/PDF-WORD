@@ -2,6 +2,9 @@ import os
 import sys
 import uuid
 import shutil
+import webbrowser
+import threading
+import time
 from flask import Flask, render_template, request, jsonify, send_file
 import fitz
 from PIL import Image as PILImage, ImageOps
@@ -16,10 +19,12 @@ import zipfile
 if getattr(sys, 'frozen', False):
     # Estamos en el ejecutable
     base_path = sys._MEIPASS
+    static_folder = os.path.join(base_path, 'static')
 else:
     base_path = os.path.dirname(os.path.abspath(__file__))
+    static_folder = os.path.join(os.path.dirname(base_path), 'static')
 
-app = Flask(__name__, static_folder=os.path.join(os.path.dirname(base_path), 'static'), static_url_path='/static')
+app = Flask(__name__, static_folder=static_folder, static_url_path='/static')
 app.config['UPLOAD_FOLDER'] = os.path.join(base_path, 'uploads')
 app.config['OUTPUT_FOLDER'] = os.path.join(base_path, 'outputs')
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -173,11 +178,18 @@ def download(task_id, filename):
     
     return response
 
+def open_browser():
+    time.sleep(2)  # Esperar a que el servidor inicie
+    webbrowser.open('http://localhost:5000/')
+
 if __name__ == '__main__':
     # Detectar si estamos en modo congelado (PyInstaller)
     if getattr(sys, 'frozen', False):
         # Estamos en el ejecutable
         os.chdir(base_path)
+    
+    # Iniciar hilo para abrir navegador automáticamente
+    threading.Thread(target=open_browser, daemon=True).start()
     
     port = 5000
     print(f"Running on http://localhost:{port}/")
