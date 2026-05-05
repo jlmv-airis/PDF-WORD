@@ -99,7 +99,7 @@ def generate_word(images, output_path):
 
 @app.route('/')
 def index():
-    return send_file('../static/index.html')
+    return send_file(os.path.join(app.static_folder, 'index.html'))
 
 @app.route('/upload', methods=['POST'])
 def upload():
