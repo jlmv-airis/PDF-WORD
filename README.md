@@ -1,4 +1,4 @@
-# AIRIS SUITE v1.0
+# AIRIS SUITE v1.1
 
 > **Estado:** ✅ Producción estable | **Rama principal:** `main` | **Última actualización:** Mayo 2026
 
@@ -168,4 +168,4 @@ Uso libre para fines educativos y comerciales.
 
 **Desarrollado por Jorge Meneses**  
 Contacto: jorge.meneses@airis-ae.com.mx  
-© 2026 AIRIS SUITE v1.0 | [GitHub](https://github.com/jlmv-airis/PDF-WORD)
+© 2026 AIRIS SUITE v1.1 | [GitHub](https://github.com/jlmv-airis/PDF-WORD)

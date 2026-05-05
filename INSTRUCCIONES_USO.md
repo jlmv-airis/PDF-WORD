@@ -1,4 +1,4 @@
-# AIRIS SUITE v1.0 - Instrucciones de Uso
+# AIRIS SUITE v1.1 - Instrucciones de Uso
 
 ## Opción 1: Uso Local (Requiere Python)
 
